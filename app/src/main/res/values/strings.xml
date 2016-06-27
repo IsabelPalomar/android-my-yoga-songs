@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">My Yoga Songs</string>
+
+    <string name="dummy_button">START LISTENING</string>
+    <string name="dummy_content">My Yoga\nSongs</string>
+    <string name="title_activity_main">Yoga &amp; Meditation songs</string>
+</resources>
