@@ -4,4 +4,5 @@
     <string name="dummy_button">START LISTENING</string>
     <string name="dummy_content">My Yoga\nSongs</string>
     <string name="title_activity_main">Yoga &amp; Meditation songs</string>
+    <string name="title_activity_player">PlayerActivity</string>
 </resources>
