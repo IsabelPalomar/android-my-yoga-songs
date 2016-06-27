@@ -23,9 +23,9 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/categories_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="64dp"
-        android:id="@+id/rv"/>
+        android:layout_marginTop="@dimen/activity_default_margin" />
 
 </android.support.design.widget.CoordinatorLayout>

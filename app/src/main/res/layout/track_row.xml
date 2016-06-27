@@ -11,7 +11,9 @@
         android:layout_centerVertical="true"
         android:padding="@dimen/image_padding"
         android:layout_width="@dimen/image_size"
-        android:layout_height="@dimen/image_size"/>
+        android:layout_height="@dimen/image_size"
+        android:src="@drawable/default_song_img"
+        />
     <TextView
         android:layout_centerVertical="true"
         android:id="@+id/track_title"

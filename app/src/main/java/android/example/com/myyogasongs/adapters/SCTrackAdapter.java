@@ -14,6 +14,11 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+/**
+ * This adapter uses extends BaseAdapter adapter to create a list of elements in a ListView.
+ * We are passing a list of "tracks" with an image resource and track title
+ */
+
 public class SCTrackAdapter extends BaseAdapter {
     private Context mContext;
     private List<Track> mTracks;
@@ -45,7 +50,7 @@ public class SCTrackAdapter extends BaseAdapter {
 
         ViewHolder holder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.track, parent, false);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.track_row, parent, false);
             holder = new ViewHolder();
             holder.trackImageView = (ImageView) convertView.findViewById(R.id.track_image);
             holder.titleTextView = (TextView) convertView.findViewById(R.id.track_title);
@@ -57,7 +62,10 @@ public class SCTrackAdapter extends BaseAdapter {
         holder.titleTextView.setText(track.getTitle());
 
         // Trigger the download of the URL asynchronously into the image view.
-        Picasso.with(mContext).load(track.getArtworkURL()).into(holder.trackImageView);
+        System.out.println(track.getArtworkURL());
+        if(track.getArtworkURL() != null ){
+            Picasso.with(mContext).load(track.getArtworkURL()).into(holder.trackImageView);
+        }
 
         return convertView;
     }
@@ -66,6 +74,5 @@ public class SCTrackAdapter extends BaseAdapter {
         ImageView trackImageView;
         TextView titleTextView;
     }
-
 
 }

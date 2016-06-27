@@ -10,7 +10,6 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,22 +20,28 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+/**
+ * In this activity the application displays a list of tracks returned by the SoundCloud API
+ * by tag list https://developers.soundcloud.com/docs/api/reference#tag_list
+
+ */
 public class PlayerActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "PlayList";
     private List<Track> mListItems;
     private SCTrackAdapter mAdapter;
+    private ListView listView;
     private TextView mSelectedTrackTitle;
     private ImageView mSelectedTrackImage;
+    private String category;
+    String type;
 
     private MediaPlayer mMediaPlayer;
     private ImageView mPlayerControl;
@@ -46,6 +51,17 @@ public class PlayerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player);
 
+        //Get the extras from the previous activity
+        category = getIntent().getStringExtra("category");
+        type = getIntent().getStringExtra("type");
+
+        //Get the Views from layout
+        listView = (ListView)findViewById(R.id.track_list_view);
+        mSelectedTrackTitle = (TextView)findViewById(R.id.selected_track_title);
+        mSelectedTrackImage = (ImageView)findViewById(R.id.selected_track_image);
+        mPlayerControl = (ImageView)findViewById(R.id.player_control);
+
+        //Create the MediaPlayer element and prepare the listener
         mMediaPlayer = new MediaPlayer();
         mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
@@ -54,7 +70,6 @@ public class PlayerActivity extends AppCompatActivity {
                 togglePlayPause();
             }
         });
-
         mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
@@ -62,28 +77,18 @@ public class PlayerActivity extends AppCompatActivity {
             }
         });
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        final String category = getIntent().getStringExtra("category");
-
+        //Creates a new SCTrackAdapter using the current context and the list of items
         mListItems = new ArrayList<Track>();
-        ListView listView = (ListView)findViewById(R.id.track_list_view);
         mAdapter = new SCTrackAdapter(this, mListItems);
         listView.setAdapter(mAdapter);
 
-        mSelectedTrackTitle = (TextView)findViewById(R.id.selected_track_title);
-        mSelectedTrackImage = (ImageView)findViewById(R.id.selected_track_image);
-        mPlayerControl = (ImageView)findViewById(R.id.player_control);
-
+        //Creates the behaviour of the mPlayerControl
         mPlayerControl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 togglePlayPause();
             }
         });
-
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -107,8 +112,9 @@ public class PlayerActivity extends AppCompatActivity {
             }
         });
 
+        //Calls the SoundCloud service to get the tracks
         SCService scService = SoundCloud.getService();
-        scService.getRecentTracks("Yoga", new Callback<List<Track>>() {
+        scService.getRecentTracks(type, new Callback<List<Track>>() {
             @Override
             public void success(List<Track> tracks, Response response) {
                 loadTracks(tracks);
@@ -120,9 +126,11 @@ public class PlayerActivity extends AppCompatActivity {
             }
         });
 
-
     }
 
+    /**
+     * Stops the media player and makes it null
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -137,12 +145,19 @@ public class PlayerActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Loads the tracks from SCService
+     * @param tracks
+     */
     private void loadTracks(List<Track> tracks) {
         mListItems.clear();
         mListItems.addAll(tracks);
         mAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * Play and pause the song, changes the drawable for a better UX
+     */
     private void togglePlayPause() {
         if (mMediaPlayer.isPlaying()) {
             mMediaPlayer.pause();
@@ -152,5 +167,4 @@ public class PlayerActivity extends AppCompatActivity {
             mPlayerControl.setImageResource(R.drawable.ic_pause);
         }
     }
-
 }

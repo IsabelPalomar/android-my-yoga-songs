@@ -2,6 +2,19 @@ package android.example.com.myyogasongs.models;
 
 
 public class Category {
+
+    String name;
+    String description;
+    int imageId;
+    String type;
+
+    public Category(String name, String description, int imageId, String type) {
+        this.name = name;
+        this.description = description;
+        this.imageId = imageId;
+        this.type = type;
+    }
+
     public String getName() {
         return name;
     }
@@ -14,14 +27,7 @@ public class Category {
         return imageId;
     }
 
-    String name;
-    String description;
-    int imageId;
-
-    public Category(String name, String description, int imageId) {
-        this.name = name;
-        this.description = description;
-        this.imageId = imageId;
+    public String getType() {
+        return type;
     }
-
 }

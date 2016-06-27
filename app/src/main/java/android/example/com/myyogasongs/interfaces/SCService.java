@@ -11,6 +11,6 @@ import retrofit.http.Query;
 
 public interface SCService{
         @GET("/tracks?client_id=" + Config.CLIENT_ID)
-        public void getRecentTracks(@Query("playlist_type[type]") String type, Callback<List<Track>> cb);
+        public void getRecentTracks(@Query("tag_list[type]") String type, Callback<List<Track>> cb);
 
 }
