@@ -15,14 +15,17 @@ public class HomeScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
 
+        //Get the startBtn view and creates an intent to go to MainActivity activity
         Button startBtn = (Button)findViewById(R.id.btn_start_application);
-        startBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(HomeScreen.this, MainActivity.class);
-                startActivity(i);
-            }
-        });
+        if (startBtn != null) {
+            startBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(HomeScreen.this, MainActivity.class);
+                    startActivity(i);
+                }
+            });
+        }
 
     }
 

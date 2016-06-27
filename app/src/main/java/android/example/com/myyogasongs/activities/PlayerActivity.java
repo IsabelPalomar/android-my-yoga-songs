@@ -5,12 +5,10 @@ import android.example.com.myyogasongs.adapters.SCTrackAdapter;
 import android.example.com.myyogasongs.interfaces.SCService;
 import android.example.com.myyogasongs.models.Track;
 import android.example.com.myyogasongs.utils.Config;
-import android.example.com.myyogasongs.utils.SoundCloud;
+import android.example.com.myyogasongs.adapters.SoundCloud;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -29,7 +27,6 @@ import java.util.Date;
 import java.util.List;
 
 import retrofit.Callback;
-import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
@@ -111,7 +108,7 @@ public class PlayerActivity extends AppCompatActivity {
         });
 
         SCService scService = SoundCloud.getService();
-        scService.getRecentTracks(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()), new Callback<List<Track>>() {
+        scService.getRecentTracks("Yoga", new Callback<List<Track>>() {
             @Override
             public void success(List<Track> tracks, Response response) {
                 loadTracks(tracks);

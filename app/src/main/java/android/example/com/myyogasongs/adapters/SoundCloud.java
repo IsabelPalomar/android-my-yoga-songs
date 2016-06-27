@@ -1,6 +1,7 @@
-package android.example.com.myyogasongs.utils;
+package android.example.com.myyogasongs.adapters;
 
 import android.example.com.myyogasongs.interfaces.SCService;
+import android.example.com.myyogasongs.utils.Config;
 
 import retrofit.RestAdapter;
 

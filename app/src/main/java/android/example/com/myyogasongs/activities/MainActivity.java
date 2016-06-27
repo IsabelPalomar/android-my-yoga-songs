@@ -1,5 +1,6 @@
 package android.example.com.myyogasongs.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.example.com.myyogasongs.R;
 import android.example.com.myyogasongs.models.Category;
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         rv.setLayoutManager(llm);
 
-        RVAdapter adapter = new RVAdapter(categories);
+        CustomRecyclerAdapter adapter = new CustomRecyclerAdapter(categories);
         rv.setAdapter(adapter);
 
 
@@ -46,20 +47,21 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeData(){
         categories = new ArrayList<>();
-        categories.add(new Category("Yoga: Elevation of Spirit", "Desc", R.drawable.yoga_elevation));
-        categories.add(new Category("New Age Yoga", "Desc", R.drawable.yoga_new_age));
-        categories.add(new Category("Indie Yoga", "Desc", R.drawable.yoga_indie));
-        categories.add(new Category("Classic Relaxation", "Desc", R.drawable.yoga_classic));
+        categories.add(new Category("Yoga: Elevation of Spirit", "Feel the esscence of yoga with this amazing songs", R.drawable.yoga_elevation));
+        categories.add(new Category("New Age Yoga", "Like Vinyasa, these songs are both flowing and dynamic", R.drawable.yoga_new_age));
+        categories.add(new Category("Indie Yoga", "Listen this indie playlist to clear the mind", R.drawable.yoga_indie));
+        categories.add(new Category("Classic Relaxation", "Find solance in this mellow classic yoga songs", R.drawable.yoga_classic));
 
     }
 
-    public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder>{
+    public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAdapter.PersonViewHolder>{
 
         List<Category> categories;
 
-        RVAdapter(List<Category> persons){
+        CustomRecyclerAdapter(List<Category> persons){
             this.categories = persons;
         }
+
 
         @Override
         public PersonViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -109,8 +111,6 @@ public class MainActivity extends AppCompatActivity {
                 categoryName = (TextView)itemView.findViewById(R.id.category_name);
                 categoryDesc = (TextView)itemView.findViewById(R.id.category_desc);
                 categoryImg = (ImageView)itemView.findViewById(R.id.category_img);
-
-
             }
         }
 
