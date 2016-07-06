@@ -62,7 +62,6 @@ public class SCTrackAdapter extends BaseAdapter {
         holder.titleTextView.setText(track.getTitle());
 
         // Trigger the download of the URL asynchronously into the image view.
-        System.out.println(track.getArtworkURL());
         if(track.getArtworkURL() != null ){
             Picasso.with(mContext).load(track.getArtworkURL()).into(holder.trackImageView);
         }
